@@ -1,20 +1,8 @@
 {
   "urls": [
     {
-      "name": "🚀 FXTech 专属源",
+      "name": "公众号:风象科技",
       "url": "https://fxtech.cc.cd/tvbox.json"
-    },
-    {
-      "name": "📺 饭太硬 线路（备用）",
-      "url": "https://💡饭太硬.top/tv"
-    },
-    {
-      "name": "🌿 肥猫 线路（备用）",
-      "url": "http://肥猫.com/肥猫"
-    },
-    {
-      "name": "🎯 开源 线路（备用）",
-      "url": "https://raw.liucn.cc/box/m.json"
     }
   ]
 }
