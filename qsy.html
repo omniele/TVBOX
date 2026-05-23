@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全网短视频一键去水印工具 - 免费在线提取无水印视频</title>
+    <meta name="description" content="支持抖音、快手、小红书等20+平台，一键解析提取高清无水印短视频，永久免费，无需登录。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center p-4">
+
+    <!-- 顶部标题 -->
+    <header class="w-full max-w-2xl text-center py-10">
+        <h1 class="text-4xl font-bold text-slate-800 mb-2">VideoClean</h1>
+        <p class="text-slate-500">专业、极速、无广告的短视频提取助手</p>
+    </header>
+
+    <!-- 主搜索框 -->
+    <main class="w-full max-w-xl glass shadow-xl rounded-2xl p-6 border border-slate-100">
+        <div class="flex flex-col gap-4">
+            <input type="text" id="url" placeholder="请粘贴视频分享链接..." 
+                   class="w-full p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
+            <button onclick="handleParse()" 
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition shadow-lg shadow-blue-200">
+                立即解析
+            </button>
+        </div>
+    </main>
+
+    <!-- 结果展示区 -->
+    <div id="resultArea" class="w-full max-w-xl mt-8 hidden">
+        <!-- 解析出的内容会动态注入到这里 -->
+    </div>
+
+    <!-- SEO 底部描述 -->
+    <footer class="w-full max-w-2xl mt-20 border-t pt-8 text-sm text-slate-400 text-center">
+        <p>© 2026 视频去水印工具 | 支持 20+ 主流平台</p>
+    </footer>
+
+</body>
+</html>
