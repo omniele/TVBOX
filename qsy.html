@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+
+html_content = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全网短视频解析下载 - 支持抖音、快手、小红书、B站、TikTok等20+平台</title>
-    <meta name="description" content="免费短视频解析下载工具，支持抖音、快手、小红书、bilibili、油管、TikTok、西瓜视频、好看视频、微视、梨视频、A站、知乎、绿洲、美拍、全民K歌、虎牙、推特、Instagram、豆包、即梦AI等20+平台视频去水印下载，高清无水印，永久免费。">
-    <meta name="keywords" content="短视频解析,视频下载,去水印,抖音下载,快手下载,小红书下载,B站下载,TikTok下载,YouTube下载,西瓜视频下载,视频解析工具,免费视频下载">
-    <meta name="author" content="VideoParser">
-    <meta property="og:title" content="全网短视频解析下载 - 支持20+平台">
-    <meta property="og:description" content="免费支持抖音、快手、小红书、B站、TikTok等20+平台视频去水印下载">
+    <title>风象科技 - 全网短视频解析下载 - 支持抖音、快手、小红书、B站、TikTok等20+平台</title>
+    <meta name="description" content="风象科技提供免费短视频解析下载工具，支持抖音、快手、小红书、bilibili、油管、TikTok、西瓜视频、好看视频、微视、梨视频、A站、知乎、绿洲、美拍、全民K歌、虎牙、推特、Instagram、豆包、即梦AI等20+平台视频去水印下载，高清无水印，永久免费。关注公众号：风象科技，获取更多工具和服务。">
+    <meta name="keywords" content="风象科技,短视频解析,视频下载,去水印,抖音下载,快手下载,小红书下载,B站下载,TikTok下载,YouTube下载,西瓜视频下载,视频解析工具,免费视频下载,公众号风象科技">
+    <meta name="author" content="风象科技">
+    <meta property="og:title" content="风象科技 - 全网短视频解析下载 - 支持20+平台">
+    <meta property="og:description" content="风象科技免费支持抖音、快手、小红书、B站、TikTok等20+平台视频去水印下载，关注公众号：风象科技">
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://your-domain.pages.dev">
     <style>
@@ -237,6 +238,66 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto 40px;
+        }
+
+        /* Brand Banner */
+        .brand-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-banner .wechat-icon {
+            font-size: 1.2rem;
+        }
+
+        .brand-banner strong {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Marquee */
+        .marquee-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 12px 0;
+            font-size: 0.95rem;
+            color: var(--accent);
+        }
+
+        .marquee-content span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Main Parser Section */
@@ -609,6 +670,28 @@
             text-decoration: none;
         }
 
+        .footer-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .footer-wechat {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            margin: 12px 0;
+            color: var(--accent);
+        }
+
         /* Toast Notification */
         .toast {
             position: fixed;
@@ -681,6 +764,11 @@
             .download-btn {
                 width: 100%;
             }
+
+            .brand-banner {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
         }
 
         /* Scrollbar */
@@ -713,7 +801,7 @@
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon">▶</div>
-                    <span>VideoParser Pro</span>
+                    <span>风象科技</span>
                 </div>
                 <nav>
                     <ul class="nav-links">
@@ -728,12 +816,34 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="brand-banner">
+            <span class="wechat-icon">📢</span>
+            <span>关注公众号：<strong>风象科技</strong>，获取更多免费工具</span>
+        </div>
         <div class="hero-badge">
             <span>✨ 已支持 20+ 主流平台</span>
         </div>
         <h1>全网短视频 <span>解析下载</span></h1>
-        <p>免费、快速、高清无水印。支持抖音、快手、小红书、B站、TikTok、YouTube等全球主流短视频平台一键解析下载。</p>
+        <p>风象科技出品，免费、快速、高清无水印。支持抖音、快手、小红书、B站、TikTok、YouTube等全球主流短视频平台一键解析下载。</p>
     </section>
+
+    <!-- Marquee -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-content">
+                <span>📢 风象科技 - 专注互联网工具开发</span>
+                <span>💡 公众号：风象科技</span>
+                <span>🎯 免费短视频解析下载</span>
+                <span>🔥 支持20+主流平台</span>
+                <span>⚡ 极速解析，高清无水印</span>
+                <span>📢 风象科技 - 专注互联网工具开发</span>
+                <span>💡 公众号：风象科技</span>
+                <span>🎯 免费短视频解析下载</span>
+                <span>🔥 支持20+主流平台</span>
+                <span>⚡ 极速解析，高清无水印</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Parser Section -->
     <section class="parser-section" id="parse">
@@ -772,14 +882,14 @@
                         </div>
                     </div>
                     <div class="download-buttons">
-                        <a href="#" class="download-btn primary" id="downloadVideo" target="_blank">
+                        <button class="download-btn primary" id="downloadVideoBtn" onclick="downloadFile('video')">
                             <span>📥</span>
                             <span>下载视频</span>
-                        </a>
-                        <a href="#" class="download-btn secondary" id="downloadCover" target="_blank">
+                        </button>
+                        <button class="download-btn secondary" id="downloadCoverBtn" onclick="downloadFile('cover')">
                             <span>🖼️</span>
                             <span>下载封面</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -790,7 +900,7 @@
     <section class="platforms-section" id="platforms">
         <div class="section-header">
             <h2>支持平台</h2>
-            <p>覆盖国内外主流短视频平台，持续更新中</p>
+            <p>覆盖国内外主流短视频平台，持续更新中 —— 风象科技</p>
         </div>
         <div class="platforms-grid">
             <div class="platform-card">
@@ -900,7 +1010,7 @@
     <section class="features-section" id="features">
         <div class="section-header">
             <h2>功能特色</h2>
-            <p>为什么选择我们的解析服务</p>
+            <p>风象科技 —— 为什么选择我们的解析服务</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
@@ -916,7 +1026,7 @@
             <div class="feature-card">
                 <div class="feature-icon">🆓</div>
                 <h3>完全免费</h3>
-                <p>所有功能永久免费开放，无需注册登录，无下载次数限制，无隐藏收费。</p>
+                <p>风象科技所有功能永久免费开放，无需注册登录，无下载次数限制，无隐藏收费。</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
@@ -931,7 +1041,7 @@
             <div class="feature-card">
                 <div class="feature-icon">🔄</div>
                 <h3>持续更新</h3>
-                <p>紧跟平台更新节奏，7×24小时维护，确保解析服务始终稳定可用。</p>
+                <p>风象科技紧跟平台更新节奏，7×24小时维护，确保解析服务始终稳定可用。</p>
             </div>
         </div>
     </section>
@@ -939,7 +1049,12 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p> VideoParser Pro. 免费短视频解析下载工具 | 仅供学习交流使用</p>
+            <div class="footer-brand">风象科技</div>
+            <div class="footer-wechat">
+                <span>📢</span>
+                <span>公众号：风象科技</span>
+            </div>
+            <p>风象科技出品 · 免费短视频解析下载工具 | 仅供学习交流使用</p>
             <p style="margin-top: 8px; font-size: 0.85rem;">支持抖音、快手、小红书、B站、YouTube、TikTok、西瓜视频、好看视频、微视、梨视频、AcFun、知乎、绿洲、美拍、全民K歌、虎牙、Twitter/X、Instagram、豆包、即梦AI等20+平台</p>
         </div>
     </footer>
@@ -948,6 +1063,9 @@
     <div class="toast" id="toast"></div>
 
     <script>
+        // Store current video data for download
+        let currentVideoData = null;
+
         // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -971,6 +1089,51 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // Download file function
+        async function downloadFile(type) {
+            if (!currentVideoData) {
+                showToast('请先解析视频');
+                return;
+            }
+
+            const url = type === 'video' ? currentVideoData.url : currentVideoData.cover;
+            const filename = type === 'video' 
+                ? `风象科技_${currentVideoData.author || 'video'}_${Date.now()}.mp4`
+                : `风象科技_${currentVideoData.author || 'cover'}_${Date.now()}.jpg`;
+
+            if (!url) {
+                showToast(type === 'video' ? '视频链接不可用' : '封面链接不可用');
+                return;
+            }
+
+            try {
+                showToast('正在准备下载...', 'success');
+                
+                // Try fetch and blob download first (for same-origin or CORS-enabled)
+                const response = await fetch(url, { 
+                    method: 'GET',
+                    mode: 'no-cors'  // Try no-cors mode
+                });
+                
+                // If we get here with no-cors, we can't read the response
+                // So fall back to opening in new tab
+                throw new Error('CORS blocked');
+                
+            } catch (e) {
+                // Fallback: open in new tab for browser to handle
+                const a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.download = filename;
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                showToast(type === 'video' ? '视频已在新窗口打开，请手动保存' : '封面已在新窗口打开，请手动保存', 'success');
+            }
         }
 
         // Parse video function
@@ -1017,7 +1180,8 @@
                     throw new Error(data.msg || '解析失败，请检查链接是否正确');
                 }
 
-                // Display result
+                // Store data and display result
+                currentVideoData = data.data;
                 displayResult(data.data);
                 showToast('解析成功！', 'success');
 
@@ -1038,7 +1202,7 @@
             const coverImg = document.getElementById('coverImg');
             coverImg.src = data.cover || '';
             coverImg.onerror = function() {
-                this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%231e293b"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="sans-serif"%3E暂无封面%3C/text%3E%3C/svg%3E';
+                this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%231e293b"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="sans-serif"%3E风象科技 - 暂无封面%3C/text%3E%3C/svg%3E';
             };
 
             // Update author info
@@ -1060,23 +1224,12 @@
             }
             document.getElementById('publishTime').textContent = timeStr;
 
-            // Update download buttons
-            const downloadVideo = document.getElementById('downloadVideo');
-            const downloadCover = document.getElementById('downloadCover');
+            // Show/hide download buttons based on data availability
+            const downloadVideoBtn = document.getElementById('downloadVideoBtn');
+            const downloadCoverBtn = document.getElementById('downloadCoverBtn');
             
-            if (data.url) {
-                downloadVideo.href = data.url;
-                downloadVideo.style.display = 'inline-flex';
-            } else {
-                downloadVideo.style.display = 'none';
-            }
-
-            if (data.cover) {
-                downloadCover.href = data.cover;
-                downloadCover.style.display = 'inline-flex';
-            } else {
-                downloadCover.style.display = 'none';
-            }
+            downloadVideoBtn.style.display = data.url ? 'inline-flex' : 'none';
+            downloadCoverBtn.style.display = data.cover ? 'inline-flex' : 'none';
 
             // Show result section
             resultSection.classList.add('active');
@@ -1115,4 +1268,11 @@
         });
     </script>
 </body>
-</html>
+</html>'''
+
+# Save to output
+with open('/mnt/agents/output/index.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("File saved successfully!")
+print(f"File size: {len(html_content)} characters")
