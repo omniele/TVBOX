@@ -1,7 +1,7 @@
 [
   {
     "name": "🐘风象TV直播",
-    "url": "https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1"
+    "url": "https://gh-proxy.org/https://raw.githubusercontent.com/omniele/TVBOX/refs/heads/main/zb/zbpz
   },
   {
     "name": "🐘日后TV直播",
