@@ -2,7 +2,7 @@
 var globalHeaders = [];
 var classes = [];
 var categories = {}; // 修复：正确使用categories存储分类数据
-var picUrl = 'https://mpimg.cn/down.php/a9e4908e3edd3dce3473125ac33c2c57.png';
+var picUrl = 'https://mpimg.cn/view.php/2da5337455f4d526a3b7257bdf5dbe67.png';
 var webPaths = {};
 var sourceHeaders = {};
 var sourceConfigs = {}; // 修复：统一使用sourceConfigs变量名
