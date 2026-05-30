@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>裤佬音乐网 - 免费无损音乐在线播放与下载</title>
-    <meta name="description" content="裤佬音乐网提供高品质无损音乐在线播放与免费下载，支持QQ音乐、酷狗、网易云等多平台音源，母带级音质，海量歌单推荐，沉浸式音乐体验。">
-    <meta name="keywords" content="免费音乐下载,无损音乐,在线听歌,QQ音乐,酷狗音乐,网易云音乐,母带音质,音乐播放器,裤佬音乐">
+    <meta name="description" content="裤佬音乐网提供高品质无损音乐在线播放与免费下载，支持网易云、QQ音乐、酷狗等多平台音源，母带级音质，海量歌单推荐，沉浸式音乐体验。">
+    <meta name="keywords" content="免费音乐下载,无损音乐,在线听歌,网易云音乐,QQ音乐,酷狗音乐,母带音质,音乐播放器,裤佬音乐">
     <meta name="author" content="裤佬音乐网">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="裤佬音乐网 - 免费无损音乐在线播放与下载">
@@ -49,14 +49,16 @@
         .page.active { display: block; }
         .mini-player { position: fixed; bottom: 70px; left: 10px; right: 10px; z-index: 999; }
         .search-input:focus { box-shadow: 0 0 0 3px rgba(168,85,247,0.3); }
-        /* 滚动条美化 */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 2px; }
         .loader { border: 2px solid rgba(255,255,255,0.1); border-top: 2px solid #a855f7; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .platform-tag { font-size: 0.6rem; padding: 1px 6px; border-radius: 4px; }
+        .platform-netease { background: rgba(198,47,47,0.3); color: #ff6b6b; }
+        .platform-qq { background: rgba(49,194,124,0.3); color: #51cf66; }
+        .platform-kugou { background: rgba(0,150,255,0.3); color: #74c0fc; }
     </style>
-    <!-- 结构化数据 -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -75,7 +77,6 @@
 <body>
     <!-- ===== 首页 ===== -->
     <div id="page-home" class="page active">
-        <!-- 顶部标题栏 -->
         <header class="sticky top-0 z-50 glass px-4 py-3">
             <div class="flex items-center justify-between max-w-lg mx-auto">
                 <div class="flex items-center gap-2">
@@ -85,8 +86,7 @@
                     <h1 class="text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">裤佬音乐</h1>
                 </div>
                 <div class="flex items-center gap-3">
-                    <span class="text-xs text-purple-300 bg-purple-500/20 px-2 py-1 rounded-full">SVIP音源</span>
-                    <button onclick="toggleTheme()" class="text-gray-400 hover:text-white transition"><i class="fas fa-moon"></i></button>
+                    <span class="text-xs text-purple-300 bg-purple-500/20 px-2 py-1 rounded-full">多平台聚合</span>
                 </div>
             </div>
         </header>
@@ -120,9 +120,7 @@
                 <h2 class="text-base font-bold">🔥 精选歌单推荐</h2>
                 <button onclick="switchPage('playlist')" class="text-xs text-purple-400">查看更多 <i class="fas fa-chevron-right"></i></button>
             </div>
-            <div class="grid grid-cols-2 gap-3" id="playlistGrid">
-                <!-- 动态生成 -->
-            </div>
+            <div class="grid grid-cols-2 gap-3" id="playlistGrid"></div>
         </section>
 
         <!-- 搜索结果区域 -->
@@ -176,7 +174,6 @@
             </div>
         </header>
         <div class="px-4 py-6 max-w-lg mx-auto">
-            <!-- 用户信息 -->
             <div class="glass-card p-4 mb-4 flex items-center gap-3">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl">👤</div>
                 <div>
@@ -184,7 +181,6 @@
                     <p class="text-xs text-gray-400">登录后可同步歌单与收藏</p>
                 </div>
             </div>
-            <!-- 功能列表 -->
             <div class="space-y-2">
                 <div class="glass-card p-3 flex items-center justify-between" onclick="showHistory()">
                     <div class="flex items-center gap-3">
@@ -207,13 +203,6 @@
                     </div>
                     <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
                 </div>
-                <div class="glass-card p-3 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-cog text-gray-400 w-5"></i>
-                        <span class="text-sm">设置</span>
-                    </div>
-                    <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
-                </div>
             </div>
         </div>
     </div>
@@ -221,7 +210,6 @@
     <!-- ===== 播放器页面（全屏） ===== -->
     <div id="page-player" class="page fixed inset-0 z-[2000] bg-gradient-to-b from-[#1a1a2e] to-[#0f0c29]">
         <div class="h-full flex flex-col max-w-lg mx-auto">
-            <!-- 顶部 -->
             <div class="flex items-center justify-between p-4">
                 <button onclick="closePlayer()" class="w-10 h-10 rounded-full glass flex items-center justify-center"><i class="fas fa-chevron-down"></i></button>
                 <div class="text-center">
@@ -230,7 +218,6 @@
                 </div>
                 <button onclick="shareSong()" class="w-10 h-10 rounded-full glass flex items-center justify-center"><i class="fas fa-share-alt"></i></button>
             </div>
-            <!-- 封面 -->
             <div class="flex-1 flex items-center justify-center px-8">
                 <div class="relative w-64 h-64">
                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500/30 to-pink-500/30 blur-3xl"></div>
@@ -240,12 +227,10 @@
                     </div>
                 </div>
             </div>
-            <!-- 歌曲信息 -->
             <div class="px-8 py-4 text-center">
                 <h3 class="text-xl font-bold mb-1" id="playerSongName">--</h3>
                 <p class="text-gray-400 text-sm" id="playerArtist">--</p>
             </div>
-            <!-- 进度条 -->
             <div class="px-8 py-2">
                 <input type="range" class="progress-bar w-full" id="progressBar" value="0" min="0" max="100" oninput="seekAudio(this.value)">
                 <div class="flex justify-between text-xs text-gray-500 mt-1">
@@ -253,7 +238,6 @@
                     <span id="duration">0:00</span>
                 </div>
             </div>
-            <!-- 控制按钮 -->
             <div class="flex items-center justify-center gap-8 py-4">
                 <button onclick="toggleLoop()" id="loopBtn" class="text-gray-400 hover:text-white transition"><i class="fas fa-redo"></i></button>
                 <button onclick="prevSong()" class="w-12 h-12 rounded-full glass flex items-center justify-center text-xl hover:bg-white/10 transition"><i class="fas fa-step-backward"></i></button>
@@ -263,10 +247,9 @@
                 <button onclick="nextSong()" class="w-12 h-12 rounded-full glass flex items-center justify-center text-xl hover:bg-white/10 transition"><i class="fas fa-step-forward"></i></button>
                 <button onclick="toggleFavorite()" id="favBtn" class="text-gray-400 hover:text-pink-400 transition"><i class="far fa-heart"></i></button>
             </div>
-            <!-- 音质与下载 -->
             <div class="px-8 pb-8 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <span class="text-xs text-purple-300 bg-purple-500/20 px-2 py-1 rounded">SQ无损</span>
+                    <span class="text-xs text-purple-300 bg-purple-500/20 px-2 py-1 rounded" id="platformTag">网易云</span>
                     <span class="text-xs text-gray-500" id="bitrate">320kbps</span>
                 </div>
                 <button onclick="downloadCurrent()" class="download-btn text-white text-sm px-5 py-2 rounded-full flex items-center gap-2 hover:shadow-lg hover:shadow-purple-500/30 transition">
@@ -313,10 +296,7 @@
         </div>
     </nav>
 
-    <!-- 音频元素 -->
     <audio id="audioPlayer" preload="metadata"></audio>
-
-    <!-- Toast 提示 -->
     <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 glass px-4 py-2 rounded-full text-sm z-[3000] hidden transition-opacity duration-300"></div>
 
     <script>
@@ -326,7 +306,7 @@
         { id: 2, name: '🎸 摇滚精选', desc: '燃烧你的激情', cover: 'https://picsum.photos/seed/rock/300/300', color: 'from-gray-700 to-gray-900' },
         { id: 3, name: '🌙 深夜电台', desc: '治愈系音乐', cover: 'https://picsum.photos/seed/night/300/300', color: 'from-indigo-500 to-purple-600' },
         { id: 4, name: '💃 抖音热曲', desc: '洗脑神曲合集', cover: 'https://picsum.photos/seed/douyin/300/300', color: 'from-pink-500 to-rose-500' },
-        { id: 5, name: '🎹 钢琴纯音', desc: '静享纯音乐', cover: 'https://picsum.photos/seed/piano/300/300', color: 'from-blue-400 to-cyan-500' },
+        { id: 5, name: '🎹 钢琴纯音! , desc: '静享纯音乐', cover: 'https://picsum.photos/seed/piano/300/300', color: 'from-blue-400 to-cyan-500' },
         { id: 6, name: '🎤 KTV必点', desc: '经典K歌金曲', cover: 'https://picsum.photos/seed/ktv/300/300', color: 'from-yellow-500 to-amber-500' },
         { id: 7, name: '🏃 运动节奏', desc: '跑步健身BGM', cover: 'https://picsum.photos/seed/sport/300/300', color: 'from-green-500 to-emerald-600' },
         { id: 8, name: '📚 学习专注', desc: '提高专注力', cover: 'https://picsum.photos/seed/study/300/300', color: 'from-teal-400 to-cyan-600' },
@@ -405,7 +385,6 @@
         `).join('');
     }
 
-    // ========== 渲染排行榜 ==========
     function renderRankList() {
         const list = document.getElementById('rankList');
         list.innerHTML = rankSongs.map((s, i) => `
@@ -421,16 +400,34 @@
         `).join('');
     }
 
-    // ========== 搜索功能 ==========
+    // ========== 【核心】搜索功能 - 使用新API ==========
     async function doSearch() {
         const q = document.getElementById('searchInput').value.trim();
-        if (!q) return;
+        if (!q) { showToast('请输入搜索关键词'); return; }
+
         showLoading();
+
+        // 新API: https://api.aa1.cn/api/music/
+        const apiUrl = `https://api.aa1.cn/api/music/?word=${encodeURIComponent(q)}`;
+
         try {
-            const res = await fetch(`https://api.lolimi.cn/API/qqdg/?word=${encodeURIComponent(q)}&n=20`);
+            const res = await fetch(apiUrl);
             const data = await res.json();
-            if (data.code === 200 && data.data) {
-                currentSongs = data.data;
+
+            if (data.code === 200 && data.data && Array.isArray(data.data)) {
+                currentSongs = data.data.map(item => ({
+                    title: item.title || '未知歌曲',
+                    artist: item.author || '未知歌手',
+                    url: item.url || '',
+                    cover: item.pic || `https://picsum.photos/seed/${item.title}/300/300`,
+                    duration: '',
+                    album: '',
+                    platform: item.type || 'netease',
+                    songid: item.songid || '',
+                    link: item.link || '',
+                    lrc: item.lrc || ''
+                })).filter(s => s.url);
+
                 renderSongs(currentSongs);
                 document.getElementById('searchResultSection').style.display = 'block';
                 document.getElementById('emptyState').style.display = 'none';
@@ -439,7 +436,7 @@
                 showToast('未找到相关歌曲');
             }
         } catch (e) {
-            showToast('搜索失败，请重试');
+            showToast('搜索失败: ' + e.message);
         }
         hideLoading();
     }
@@ -455,10 +452,12 @@
             <div class="glass-card p-3 flex items-center gap-3 song-item" style="animation-delay:${i*0.05}s">
                 <span class="text-sm text-gray-500 w-6 text-center">${String(i+1).padStart(2,'0')}</span>
                 <div class="flex-1 min-w-0 cursor-pointer" onclick="playSong(${i})">
-                    <p class="text-sm font-bold truncate">${s.song || s.title || '未知歌曲'}</p>
-                    <p class="text-xs text-gray-400 truncate">${s.singer || s.artist || '未知歌手'}</p>
+                    <div class="flex items-center gap-2">
+                        <p class="text-sm font-bold truncate">${s.title}</p>
+                        <span class="platform-tag platform-${s.platform}">${s.platform === 'netease' ? '网易' : s.platform === 'qq' ? 'QQ' : s.platform}</span>
+                    </div>
+                    <p class="text-xs text-gray-400 truncate">${s.artist}</p>
                 </div>
-                <span class="text-xs text-gray-500">${s.time || s.duration || ''}</span>
                 <button onclick="event.stopPropagation();downloadSong(${i})" class="text-gray-400 hover:text-purple-400 px-2 transition" title="下载">
                     <i class="fas fa-download"></i>
                 </button>
@@ -475,15 +474,14 @@
         const song = currentSongs[index];
         const audio = document.getElementById('audioPlayer');
 
-        audio.src = song.url || song.music || '';
+        audio.src = song.url;
         audio.play().then(() => {
             isPlaying = true;
             updatePlayerUI(song);
             showMiniPlayer();
             addToHistory(song);
-        }).catch(() => {
-            showToast('播放失败，尝试下一首');
-            nextSong();
+        }).catch(err => {
+            showToast('播放失败: ' + err.message);
         });
     }
 
@@ -493,26 +491,21 @@
     }
 
     function updatePlayerUI(song) {
-        const title = song.song || song.title || '未知歌曲';
-        const artist = song.singer || song.artist || '未知歌手';
-        const cover = song.cover || song.pic || `https://picsum.photos/seed/${title}/300/300`;
-
-        document.getElementById('playerTitle').textContent = title;
-        document.getElementById('playerSongName').textContent = title;
-        document.getElementById('playerArtist').textContent = artist;
-        document.getElementById('playerCover').src = cover;
-        document.getElementById('miniTitle').textContent = title;
-        document.getElementById('miniArtist').textContent = artist;
-        document.getElementById('miniCover').src = cover;
-        document.getElementById('bitrate').textContent = song.quality || '320kbps';
-
+        document.getElementById('playerTitle').textContent = song.title;
+        document.getElementById('playerSongName').textContent = song.title;
+        document.getElementById('playerArtist').textContent = song.artist;
+        document.getElementById('playerCover').src = song.cover;
+        document.getElementById('miniTitle').textContent = song.title;
+        document.getElementById('miniArtist').textContent = song.artist;
+        document.getElementById('miniCover').src = song.cover;
+        document.getElementById('platformTag').textContent = song.platform === 'netease' ? '网易云音乐' : song.platform === 'qq' ? 'QQ音乐' : song.platform;
         updatePlayBtn();
         updateFavBtn();
     }
 
     function togglePlay() {
         const audio = document.getElementById('audioPlayer');
-        if (!audio.src) return;
+        if (!audio.src) { showToast('请先选择歌曲'); return; }
         if (isPlaying) {
             audio.pause();
             isPlaying = false;
@@ -567,11 +560,7 @@
             }
         });
         audio.addEventListener('ended', () => {
-            if (isLoop) {
-                audio.play();
-            } else {
-                nextSong();
-            }
+            if (isLoop) { audio.play(); } else { nextSong(); }
         });
         audio.addEventListener('error', () => {
             showToast('音频加载失败');
@@ -587,12 +576,11 @@
     // ========== 下载功能 ==========
     function downloadSong(index) {
         const song = currentSongs[index];
-        const url = song.url || song.music || '';
-        if (!url) { showToast('下载链接不可用'); return; }
+        if (!song.url) { showToast('下载链接不可用'); return; }
 
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `${song.song || song.title || '未知歌曲'}.mp3`;
+        a.href = song.url;
+        a.download = `${song.title}.mp3`;
         a.target = '_blank';
         document.body.appendChild(a);
         a.click();
@@ -610,8 +598,8 @@
     function toggleFavorite() {
         if (currentIndex < 0) return;
         const song = currentSongs[currentIndex];
-        const key = song.song + song.singer;
-        const idx = favorites.findIndex(f => f.song + f.singer === key);
+        const key = song.title + song.artist;
+        const idx = favorites.findIndex(f => f.title + f.artist === key);
         if (idx >= 0) {
             favorites.splice(idx, 1);
             showToast('已取消收藏');
@@ -626,21 +614,21 @@
     function updateFavBtn() {
         if (currentIndex < 0) return;
         const song = currentSongs[currentIndex];
-        const key = song.song + song.singer;
-        const isFav = favorites.some(f => f.song + f.singer === key);
+        const key = song.title + song.artist;
+        const isFav = favorites.some(f => f.title + f.artist === key);
         document.getElementById('favBtn').innerHTML = `<i class="${isFav ? 'fas text-pink-400' : 'far'} fa-heart"></i>`;
     }
 
     // ========== 历史记录 ==========
     function addToHistory(song) {
-        history = history.filter(h => h.song + h.singer !== song.song + song.singer);
+        history = history.filter(h => h.title + h.artist !== song.title + song.artist);
         history.unshift(song);
         if (history.length > 50) history = history.slice(0, 50);
         localStorage.setItem('history', JSON.stringify(history));
     }
 
     function addToDownloads(song) {
-        if (!downloads.some(d => d.song + d.singer === song.song + song.singer)) {
+        if (!downloads.some(d => d.title + d.artist === song.title + song.artist)) {
             downloads.unshift(song);
             localStorage.setItem('downloads', JSON.stringify(downloads));
         }
@@ -692,7 +680,7 @@
     function shareSong() {
         if (currentIndex < 0) return;
         const song = currentSongs[currentIndex];
-        const text = `正在听：${song.song || song.title} - ${song.singer || song.artist}，来自裤佬音乐网`;
+        const text = `正在听：${song.title} - ${song.artist}，来自裤佬音乐网`;
         if (navigator.share) {
             navigator.share({ title: '裤佬音乐', text: text, url: window.location.href });
         } else {
@@ -705,7 +693,6 @@
     async function loadPlaylist(id) {
         const p = playlists.find(x => x.id === id);
         showToast(`正在加载「${p.name}」...`);
-        // 模拟加载歌单歌曲（实际可接入真实API）
         const keywords = ['流行', '经典', '热门', '推荐', '精选'];
         const kw = keywords[id % keywords.length];
         document.getElementById('searchInput').value = kw;
@@ -722,21 +709,11 @@
         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.classList.add('hidden'), 300); }, 2000);
     }
 
-    let loadingTimer;
     function showLoading() {
         const list = document.getElementById('songList');
         list.innerHTML = '<div class="flex justify-center py-8"><div class="loader"></div></div>';
     }
     function hideLoading() {}
-
-    function toggleTheme() {
-        showToast('主题切换功能开发中');
-    }
-
-    // PWA 支持
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('data:text/javascript,').catch(()=>{});
-    }
     </script>
 </body>
 </html>
