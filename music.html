@@ -2,84 +2,88 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>裤佬音乐网 - 在线高品质无损音乐播放与下载</title>
-    <meta name="description" content="裤佬音乐网提供最新最全的无损音乐在线收听，支持多种音质选择，一键下载高品质MP3，打造你的专属私人音乐库。">
-    <meta name="keywords" content="在线音乐,无损音乐下载,裤佬音乐,免费音乐播放器,高品质音乐">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>裤佬音乐 - 极致聆听体验</title>
+    <meta name="description" content="裤佬音乐网提供高品质音乐在线播放、无损下载、热门歌单推荐。手机App风格交互，即刻开启音乐之旅。">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "裤佬音乐网",
-      "url": "https://your-domain.com/"
-    }
-    </script>
-    
     <style>
-        /* 增加全局平滑滚动 */
-        html { scroll-behavior: smooth; }
-        /* 底部导航栏样式 */
-        .app-tabbar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 65px;
-            background: rgba(15, 12, 41, 0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-        }
+        body { background: #0f172a; color: white; -webkit-tap-highlight-color: transparent; }
+        .tab-active { color: #a855f7; border-top: 2px solid #a855f7; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-slate-950 text-white">
+<body class="pb-24">
+    <div id="app" class="max-w-md mx-auto min-h-screen">
+        <header class="p-5 text-2xl font-bold bg-slate-900/50 sticky top-0 z-50">
+            {{ activeTab === 'home' ? '首页' : activeTab === 'playlist' ? '歌单推荐' : '下载管理' }}
+        </header>
 
-<div id="app">
-    <div class="main-content pb-24">
+        <main class="p-4">
+            <div v-if="activeTab === 'home'">
+                <div class="glass-panel p-4 rounded-2xl mb-6">
+                    <input v-model="keyword" @keyup.enter="searchMusic" class="w-full bg-transparent outline-none text-lg" placeholder="搜索歌曲、歌手...">
+                </div>
+                <div v-for="song in songs" :key="song.id" @click="playSong(song)" class="flex items-center gap-4 p-3 mb-2 glass-panel rounded-xl">
+                    <div class="w-12 h-12 bg-slate-700 rounded-lg"></div>
+                    <div>
+                        <div class="font-bold">{{ song.title }}</div>
+                        <div class="text-xs text-slate-400">{{ song.artist }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="activeTab === 'playlist'">
+                <h2 class="text-xl mb-4">热门推荐</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-panel p-2 rounded-xl" v-for="n in 4">
+                        <div class="h-32 bg-slate-700 rounded-lg mb-2"></div>
+                        <div class="text-sm">精选每日歌曲推荐</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div v-if="currentSong" class="fixed bottom-[65px] left-0 w-full px-4">
+            <div class="glass-panel p-3 rounded-t-2xl border-t border-slate-700 flex items-center justify-between">
+                <div>{{ currentSong.title }}</div>
+                <button @click="togglePlay" class="w-10 h-10 bg-purple-600 rounded-full">▶</button>
+            </div>
         </div>
 
-    <nav class="app-tabbar">
-        <button @click="activeTab='home'" :class="{'text-purple-400': activeTab==='home'}">
-            🏠 首页
-        </button>
-        <button @click="activeTab='playlist'" :class="{'text-purple-400': activeTab==='playlist'}">
-            📋 歌单
-        </button>
-        <button @click="activeTab='download'" :class="{'text-purple-400': activeTab==='download'}">
-            ⬇️ 下载
-        </button>
-    </nav>
-</div>
+        <nav class="fixed bottom-0 w-full h-16 bg-slate-900 border-t border-slate-800 flex justify-around items-center">
+            <button @click="activeTab='home'" :class="{'tab-active': activeTab==='home'}" class="flex flex-col items-center text-xs">🏠 首页</button>
+            <button @click="activeTab='playlist'" :class="{'tab-active': activeTab==='playlist'}" class="flex flex-col items-center text-xs">📋 歌单</button>
+            <button @click="activeTab='download'" :class="{'tab-active': activeTab==='download'}" class="flex flex-col items-center text-xs">⬇️ 下载</button>
+        </nav>
+    </div>
 
-<script>
-    const { createApp, ref, watch } = Vue;
+    <script>
+        const { createApp, ref } = Vue;
+        createApp({
+            setup() {
+                const activeTab = ref('home');
+                const keyword = ref('');
+                const songs = ref([]);
+                const currentSong = ref(null);
+                const isPlaying = ref(false);
 
-    createApp({
-        setup() {
-            const activeTab = ref('home');
-            
-            // SEO 动态更新函数
-            const updateMeta = (title, desc) => {
-                document.title = title;
-                document.querySelector('meta[name="description"]').setAttribute('content', desc);
-            };
+                const searchMusic = async () => {
+                    // 模拟搜索结果
+                    songs.value = [{ id: 1, title: '测试歌曲', artist: '裤佬' }];
+                };
 
-            // 监听路由(tab)切换，更新 SEO
-            watch(activeTab, (newTab) => {
-                if(newTab === 'home') updateMeta('裤佬音乐网 - 首页', '欢迎来到裤佬音乐网...');
-                if(newTab === 'playlist') updateMeta('精选歌单 - 裤佬音乐', '查看热门歌单推荐...');
-            });
+                const playSong = (song) => {
+                    currentSong.value = song;
+                    isPlaying.value = true;
+                };
 
-            return { activeTab };
-        }
-    }).mount('#app');
-</script>
+                const togglePlay = () => isPlaying.value = !isPlaying.value;
+
+                return { activeTab, keyword, songs, currentSong, isPlaying, searchMusic, playSong, togglePlay };
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>
