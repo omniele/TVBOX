@@ -2,43 +2,71 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>在线音乐(兼容性版)</title>
+  <title>风象科技·高品质在线音乐 | QQ音乐 | 歌单推荐 | 音乐下载</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="风象科技音乐播放器聚合QQ音乐高品质音源，支持歌单推荐、搜索、在线播放与无损音乐下载，畅享纯粹聆听体验。">
+  <meta name="keywords" content="风象科技,音乐下载,QQ音乐无损,免费音乐,MP3下载,在线歌曲,歌单推荐,音乐App">
+  <meta name="theme-color" content="#3366CC">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "风象科技音乐播放器",
+    "description": "风象科技聚合QQ音乐热门内容，支持无损下载、歌单推荐和在线播放。",
+    "url": "https://your-domain.com/"
+  }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@1.6.8/dist/axios.min.js"></script>
   <style>
-    body { background: #282044; color: #fff; margin:0; font-family: "PingFang SC", "Arial",sans-serif;}
-    .nav {position: fixed; bottom:0; left:0; right:0; display:flex; height: 55px; background: #24173f;}
-    .nav-btn {flex:1;text-align:center;line-height:1;font-size:18px;color:#aaa;padding:6px 0 5px 0;}
-    .nav-btn.active {color: #fff; border-top:3px solid #a855f7; background:rgba(168,85,247,.18);}
-    .main{padding-bottom:65px;}
-    .tab-list {display:flex; gap:7px; margin:8px 0;}
-    .tab-btn{flex:1; padding:6px 0 2px 0;border-radius:20px; background:#322456;color:#a855f7;text-align:center;cursor:pointer;}
-    .tab-btn.active{background:linear-gradient(90deg,#a855f7,#ec489a);color:#fff;}
+    body { background: linear-gradient(135deg, #23408e 0%, #51b6d9 100%); color: #fff; margin:0; font-family: "PingFang SC","Arial",sans-serif;}
+    a { color: #03c8e7; text-decoration: underline;}
+    .main{padding-bottom:80px;max-width:430px;margin:0 auto;}
+    .brand-bar{display:flex;align-items:center;justify-content:space-between;padding:15px 10px 8px 10px;}
+    .brand-title{font-size:1.40em;letter-spacing:2px;font-family:Arial Black,PingFang SC,Arial;}
+    .qr-block{display:flex;align-items:center;gap:9px; margin-top:6px;}
+    .qr-img{width:58px;height:58px;border-radius:8px;border:2px solid #d9f3ff;box-shadow:0 2px 9px #03677733;}
+    .qr-tip{font-size:.92em;line-height:1.12;color:#caf0ff;}
+    .nav {position: fixed; bottom:0; left:0; right:0; display:flex; height: 55px; background: #234d7f;}
+    .nav-btn {flex:1;text-align:center;line-height:1;font-size:18px;color:#e4e8f2b8;padding:6px 0 5px 0;}
+    .nav-btn.active {color: #fff; border-top:3px solid #34c7e8; background:rgba(36,109,167,.14);}
+    .tab-list {display:flex; gap:6px; margin:9px 0 4px 0;}
+    .tab-btn{flex:1; padding:7px 0 3px 0;border-radius:16px; background:#227bb466;color:#25c6f7;text-align:center;cursor:pointer;}
+    .tab-btn.active{background:linear-gradient(90deg,#14bbf5,#4ed9e6);color:#fff;}
     .search-box{display: flex; margin:14px 0;}
-    .search-input{flex:1; padding:8px 7px; border-radius:13px; border: none; font-size:1em;}
-    .song-list{margin-top:10px;}
-    .song-item{background:rgba(255,255,255,0.07);border-radius:13px;margin-bottom:10px;padding:7px 10px;display:flex;align-items:center;cursor:pointer;}
-    .song-art{width:42px;height:42px;border-radius:11px;object-fit:cover;margin-right:9px;}
+    .search-input{flex:1;padding:8px 10px; border-radius:11px;border:none;font-size:1em;}
+    .song-list{margin-top:8px;}
+    .song-item{background:rgba(255,255,255,0.10);border-radius:10px;margin-bottom:8px;padding:7px 8px;display:flex;align-items:center;cursor:pointer;transition:.13s;}
+    .song-item.playing {background:linear-gradient(90deg, #25bbf7cc, #4fa6f055);}
+    .song-art{width:35px;height:35px;border-radius:7px;object-fit:cover;margin-right:7px;}
     .song-meta{flex:1;}
     .song-title{font-weight:600;}
-    .song-artist{font-size:.9em; color: #eee;}
-    .download-btn{background:#a855f7;color:#fff;border:none;border-radius:9px;padding:2px 10px;margin-left:7px; }
-    .player{margin:13px auto 0 auto; max-width:320px; text-align:center;}
-    .player-art{width:90px;height:90px;border-radius:20px;}
-    .player-title{font-size:1.1em;font-weight:700;}
-    .player-artist{color:#eee; font-size:.97em;}
-    .ctrl-row{margin:10px 0;}
-    .ctrl-btn{background:none;border:none;font-size:2em;margin:0 22px;color:#a855f7;}
-    .ctrl-btn.play{font-size:2.3em; background:linear-gradient(90deg,#a855f7 , #ec489a);color:white; border-radius:1em;padding:2px 30px;}
-    .range-bar{width:85%;}
-    .mini-tip{position:fixed;left:50%;bottom:72px;background:rgba(0,0,0,.9);color:#fff;font-size:13px;transform:translateX(-50%);padding:5px 18px;border-radius:16px;}
-    .text-muted{color:#bbb;}
+    .song-artist{font-size:.89em; color: #b9dfff;}
+    .download-btn{background:#2fd6f2;color:#fff;border:none;border-radius:7px;padding:1px 12px;margin-left:7px;font-size:.97em;}
+    .player{margin:10px 0 0 0; padding:18px 6px 14px 6px; background:rgba(0,34,56,0.09); border-radius:21px; box-shadow:0 2px 16px #c4e1f733;}
+    .player-head{display:flex;flex-direction:column;align-items:center;}
+    .player-art{width:96px;height:96px;border-radius:19px;border:2.2px solid #36c7ec;object-fit:cover;box-shadow:0 6px 40px #36c7ec40;}
+    .player-title{font-size:1.16em;margin-top:6px;font-weight:700;text-align:center;}
+    .player-artist{color:#b7e8fc;text-align:center;margin-bottom:6px;}
+    .ctrl-row{display:flex;justify-content:center;align-items:center;margin:7px 0 10px 0;}
+    .ctrl-btn{background:none;border:none;font-size:2.1em;margin:0 18px;color:#36c7ec;}
+    .ctrl-btn.play{font-size:2.38em; border-radius:1em;padding:0 28px;background:linear-gradient(90deg,#0dcff7 , #3bbcce);color:white;}
+    .range-bar{width:78%;accent-color:#2bc9ef;}
+    .mini-tip{position:fixed;left:50%;bottom:78px;background:rgba(0,17,40,.92);color:#b0f2ff;font-size:13px;transform:translateX(-50%);padding:6px 18px;border-radius:15px;}
+    .text-muted{color:#caf0fd;}
+    @media (max-width:580px){ .main{padding-left:1.5vw;padding-right:1.5vw;} }
   </style>
 </head>
 <body>
 <div id="app" class="main" v-cloak>
-  <h2 style="margin:13px 0 9px 0;text-align:center;font-weight:bold;font-size:1.3em;">裤佬音乐 - 在线音乐播放器</h2>
+  <!-- 品牌区＋公众号 -->
+  <div class="brand-bar">
+    <span class="brand-title">风象科技 · 音乐播放器</span>
+    <div class="qr-block">
+      <img class="qr-img" src="https://tc.corichy.com/file/AgACAgUAAyEGAATobBkABC5qG7dBhK9_hNwkLlD3VVEc6ucHtAACbQ9rGz_X2VQc0Krq9k6vKAEAAwIAA20AAzsE.jpg" alt="风象科技公众号二维码">
+      <span class="qr-tip">关注<br>风象科技公众号</span>
+    </div>
+  </div>
   <!-- 歌单tab -->
   <div class="tab-list">
     <div v-for="(p,i) in playlists" :key="i"
@@ -53,10 +81,10 @@
   </div>
   <!-- 歌曲列表tab页 -->
   <div v-if="tab==='home'">
-    <div v-if="loading" class="text-muted" style="text-align:center; padding:30px">加载中...</div>
-    <div v-else-if="songs.length===0" class="text-muted" style="text-align:center; padding:25px">暂无结果，请切换歌单或搜索</div>
+    <div v-if="loading" class="text-muted" style="text-align:center; padding:27px">加载中...</div>
+    <div v-else-if="songs.length===0" class="text-muted" style="text-align:center; padding:21px">暂无结果，请切换歌单或输入关键词</div>
     <div class="song-list" v-else>
-      <div class="song-item" v-for="song in songs" :key="song.id" @click="playSong(song)">
+      <div class="song-item" v-for="song in songs" :key="song.id" :class="{playing: currentSong && song.id===currentSong.id}" @click="playSong(song)">
         <img :src="song.artwork||defaultCover" class="song-art">
         <div class="song-meta">
           <div class="song-title">{{song.title}}</div>
@@ -66,22 +94,24 @@
       </div>
     </div>
   </div>
-  <!-- 播放器tab -->
+  <!-- 播放器tab，独立美观卡片布局 -->
   <div v-if="tab==='player' && currentSong" class="player">
-    <img :src="currentSong.artwork||defaultCover" class="player-art">
-    <div class="player-title">{{currentSong.title}}</div>
-    <div class="player-artist">{{currentSong.artist}}</div>
-    <div class="ctrl-row">
-      <button class="ctrl-btn" @click="prevSong">⏮</button>
-      <button class="ctrl-btn play" @click="togglePlay">{{isPlaying? '⏸' : '▶'}}</button>
-      <button class="ctrl-btn" @click="nextSong">⏭</button>
+    <div class="player-head">
+      <img :src="currentSong.artwork||defaultCover" class="player-art">
+      <div class="player-title">{{currentSong.title}}</div>
+      <div class="player-artist">{{currentSong.artist}}</div>
     </div>
-    <div>
+    <div class="ctrl-row">
+      <button class="ctrl-btn" @click="prevSong" title="上一曲">⏮</button>
+      <button class="ctrl-btn play" @click="togglePlay" title="播放/暂停">{{isPlaying? '⏸' : '▶'}}</button>
+      <button class="ctrl-btn" @click="nextSong" title="下一曲">⏭</button>
+    </div>
+    <div class="ctrl-row" style="margin-top:-5px">
       <span style="font-size:12px;">{{currentTime}}</span>
       <input type="range" min="0" :max="durationNum" v-model="slider" @input="onSliderInput" class="range-bar">
       <span style="font-size:12px;">{{duration}}</span>
     </div>
-    <button class="download-btn" @click="downloadSong(currentSong)" style="margin-top:7px">下载</button>
+    <button class="download-btn" @click="downloadSong(currentSong)" style="margin:auto;display:block;margin-top:7px">下载本曲</button>
     <audio ref="audioPlayer" :src="currentPlayUrl" @loadedmetadata="onLoaded" @timeupdate="onTimeUpdate" @ended="onEnded"></audio>
   </div>
   <!-- 导航栏 -->
@@ -94,17 +124,17 @@
 <script>
 var PROXY='https://proxy.api.030101.xyz/';
 var searchHeaders={
-  referer: "https://y.qq.com","user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",Cookie: "uin="
+  referer:"https://y.qq.com","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",Cookie:"uin="
 };
 new Vue({
   el: '#app',
   data: {
     tab:'home',
     playlists:[
-      {name:'热歌榜',emoji:'🔥',keywords:'热歌'},
-      {name:'抖音热曲',emoji:'💃',keywords:'抖音'},
+      {name:'风向热歌',emoji:'🔥',keywords:'热歌'},
+      {name:'流行热曲',emoji:'🎵',keywords:'流行'},
       {name:'华语经典',emoji:'🎤',keywords:'华语'},
-      {name:'夜间电台',emoji:'🌙',keywords:'夜曲'}
+      {name:'轻听夜晚',emoji:'🌙',keywords:'夜曲'}
     ],
     playlistIdx:0,
     keyword:'',
@@ -202,7 +232,7 @@ new Vue({
       var a = document.createElement('a'); a.href=href; a.download=`${song.title}-${song.artist}.mp3`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(href);
       this.showMsg('下载完成');
     },
-    showMsg(t){this.msg=t;setTimeout(()=>this.msg='',1500);}
+    showMsg(t){this.msg=t;setTimeout(()=>this.msg='',1600);}
   }
 });
 </script>
